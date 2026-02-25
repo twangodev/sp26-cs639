@@ -101,19 +101,18 @@ class NeuralNetwork:
         X_shuffled, Y_shuffled = self.shuffle(X, Y)
         batches = self.make_batches(X_shuffled, Y_shuffled, batch_size)
 
-        epoch_loss = 0
         for X_batch, Y_batch in batches:
-            epoch_loss += self.train_batch(X_batch, Y_batch, lr, loss_type)
-
-        return epoch_loss / len(batches)
+            self.train_batch(X_batch, Y_batch, lr, loss_type)
 
     def train(self, X, Y, epochs, lr, batch_size=32, loss_type="ce"):
-        """Mini-batch SGD training. Returns per-epoch average losses."""
+        """Mini-batch SGD training. Returns per-epoch average loss across all training samples."""
         np.random.seed(0)
         losses = []
         for epoch in range(epochs):
-            avg_loss = self.train_epoch(X, Y, lr, batch_size, loss_type)
-            losses.append(avg_loss)
+            self.train_epoch(X, Y, lr, batch_size, loss_type)
+            O = self.forward(X)
+            loss = self.compute_loss(O, Y, loss_type)
+            losses.append(loss)
         return losses
 
     def evaluate(self, X, Y, loss_type="ce"):
