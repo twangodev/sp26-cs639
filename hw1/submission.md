@@ -69,7 +69,7 @@
 
 	More hidden units = better. Hidden=2 is a bottleneck — 784 dims compressed to 2 loses too much info. Big jump from 2 to 8, then diminishing returns. Training curves show the same ordering.
 
-Cross-Dataset Comparison
+## Comparison
 
 Housing was definitely the easiest, MNIST was okay, Iris was the hardest. Iris barely learned in 10 epochs due to only 4 features with tiny init weights. MNIST learned well thanks to more data (60k samples) and higher dimensionality (784 features). We can improve this by just increasing epochs I believe.
 
