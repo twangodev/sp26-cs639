@@ -14,7 +14,6 @@ HIDDEN_SIZES = [2, 8, 16, 32]
 
 
 def load_iris():
-    """Load Iris dataset, return X and Y (one-hot)."""
     df = pd.read_csv("data/iris.data", header=None)
     df.columns = ["sepal_length", "sepal_width", "petal_length", "petal_width", "species"]
 
@@ -31,11 +30,9 @@ def load_iris():
 
 
 def load_housing():
-    """Load California Housing dataset, return X and Y."""
     df = pd.read_csv("data/housing.csv")
     df = df.dropna()
 
-    # One-hot encode ocean_proximity
     dummies = pd.get_dummies(df["ocean_proximity"], dtype=float)
     df = pd.concat([df.drop("ocean_proximity", axis=1), dummies], axis=1)
 
@@ -46,7 +43,6 @@ def load_housing():
 
 
 def load_mnist():
-    """Load MNIST dataset, return X_train, Y_train, X_test, Y_test."""
     def read_images(filename):
         with open(filename, 'rb') as f:
             magic, n, rows, cols = struct.unpack(">IIII", f.read(16))
